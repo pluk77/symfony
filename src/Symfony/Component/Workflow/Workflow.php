@@ -395,6 +395,10 @@ class Workflow implements WorkflowInterface
             foreach ($transition->getTos() as $place) {
                 $this->dispatcher->dispatch($event, sprintf('workflow.%s.entered.%s', $this->name, $place));
             }
+        } elseif (!empty($this->definition->getInitialPlaces())) {
+            foreach ($this->definition->getInitialPlaces() as $place) {
+                $this->dispatcher->dispatch($event, sprintf('workflow.%s.entered.%s', $this->name, $place));
+            }
         }
     }
 
